@@ -38,17 +38,21 @@
                       <Component id="jButton1" pref="150" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="jLabel8" max="32767" attributes="0"/>
-                          <Component id="jLabel4" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel3" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jLabel5" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jLabel6" alignment="1" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="jLabel8" max="32767" attributes="0"/>
+                              <Component id="jLabel4" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel3" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jLabel5" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jLabel6" alignment="1" max="32767" attributes="0"/>
+                          </Group>
+                          <Component id="jLabel9" alignment="0" min="-2" pref="84" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="ctxLogin" max="32767" attributes="0"/>
                           <Component id="ctxPassword" alignment="0" max="32767" attributes="0"/>
                           <Component id="ctxNIF" alignment="0" max="32767" attributes="0"/>
                           <Component id="ctxMorada" alignment="0" max="32767" attributes="0"/>
@@ -93,7 +97,12 @@
                   <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="ctxTelefone" alignment="0" min="-2" pref="16" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="ctxLogin" alignment="0" min="-2" pref="16" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="ctxPassword" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
@@ -159,20 +168,29 @@
     </Component>
     <Component class="javax.swing.JPasswordField" name="ctxRePassword">
       <Properties>
-        <Property name="text" type="java.lang.String" value="111111111"/>
+        <Property name="text" type="java.lang.String" value="Francis1!"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ctxRePasswordActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JPasswordField" name="ctxPassword">
       <Properties>
-        <Property name="text" type="java.lang.String" value="111111111"/>
+        <Property name="text" type="java.lang.String" value="Francis1!"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ctxPasswordActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="ctxNome">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Utilizador"/>
+        <Property name="text" type="java.lang.String" value="Timoteo"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="ctxEmail">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="francis16timoteo@hotmail.com"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="ctxMorada">
       <Properties>
@@ -184,8 +202,11 @@
     </Component>
     <Component class="javax.swing.JTextField" name="ctxNIF">
       <Properties>
-        <Property name="text" type="java.lang.String" value="111111111"/>
+        <Property name="text" type="java.lang.String" value="999999999"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ctxNIFActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton2">
       <Properties>
@@ -214,8 +235,21 @@
     </Component>
     <Component class="javax.swing.JTextField" name="ctxTelefone">
       <Properties>
-        <Property name="text" type="java.lang.String" value="111111111"/>
+        <Property name="text" type="java.lang.String" value="919191919"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel9">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Login"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="ctxLogin">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Stuffz"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ctxLoginActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

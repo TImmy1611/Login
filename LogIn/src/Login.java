@@ -1,5 +1,18 @@
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 public class Login extends javax.swing.JFrame {
+    public static String login;
+    
 
     public Login() {
         initComponents();
@@ -11,7 +24,7 @@ public class Login extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        ctxLogin1 = new javax.swing.JTextField();
+        ctxLogin = new javax.swing.JTextField();
         ctxPassword = new javax.swing.JPasswordField();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -26,12 +39,12 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel2.setText("PASSWORD");
 
-        ctxLogin1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        ctxLogin1.setText("Timmyboy");
-        ctxLogin1.setPreferredSize(new java.awt.Dimension(100, 50));
-        ctxLogin1.addActionListener(new java.awt.event.ActionListener() {
+        ctxLogin.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        ctxLogin.setText("Stuffz");
+        ctxLogin.setPreferredSize(new java.awt.Dimension(100, 50));
+        ctxLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ctxLogin1ActionPerformed(evt);
+                ctxLoginActionPerformed(evt);
             }
         });
 
@@ -47,6 +60,11 @@ public class Login extends javax.swing.JFrame {
 
         jButton2.setBackground(new java.awt.Color(255, 204, 255));
         jButton2.setText("Login");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -60,7 +78,7 @@ public class Login extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(ctxLogin1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(ctxLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)
@@ -80,7 +98,7 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(ctxLogin1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ctxLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1))
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -97,18 +115,71 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ctxLogin1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ctxLogin1ActionPerformed
+    private void ctxLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ctxLoginActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_ctxLogin1ActionPerformed
-
+    }//GEN-LAST:event_ctxLoginActionPerformed
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         FormRegisto fr = new FormRegisto();
         fr.setVisible(false);
         fr.setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+    private void mensagemErro(String erro) {
+        JOptionPane.showMessageDialog(null, erro, "Erro Validação", JOptionPane.ERROR_MESSAGE);
+    }
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        /*validação através da recolha e comparação de password e login
+        Verificar se existe ficheiro "login.txt"*/
+        login = ctxLogin.getText();
+        String pass = ctxPassword.getText();
+        File file1 = new File(login+".txt");
+
+        if (file1.exists() && !file1.isDirectory()) {
+            System.out.println(file1 + " Exists");
+            try {
+                FileReader fr = new FileReader(login+".txt");
+                BufferedReader br = new BufferedReader(fr);
+                while (br.ready()) {
+                    String linha = br.readLine();
+                    if (linha.equals(pass)) {
+                        System.out.println("Pass Corresponde");
+                        MenuOpcoes m = new MenuOpcoes();
+                        m.setVisible(true);
+                        break;
+                    }
+                else{
+                        mensagemErro("Login/Pass não corresponde");
+                    }
+                }
+                br.close();
+                fr.close();
+            } catch (FileNotFoundException ex) {
+                ex.printStackTrace();
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
+
+        }
+        else {
+            mensagemErro(file1 + " Does not exists");
+            //try {
+                //file1.createNewFile();
+            //} catch (IOException ex) {
+               // ex.printStackTrace();
+            //}
+            
+            //Verificar se a password corresponde à pass que está no ficheiro
+            //se sim,segue para a JFrame Form MenuOpcoes
+            //Se login e pass CORRETOS, faz o seguinte:
+            /*MenuOpcoes mo = new MenuOpcoes();
+            this.setVisible(false);
+            mo.setVisible(true);*/
+            //Senão, lança um alert de dados de login incorretos
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    }
 
     public static void main(String args[]) {
-
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Login().setVisible(true);
@@ -117,7 +188,7 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField ctxLogin1;
+    private javax.swing.JTextField ctxLogin;
     private javax.swing.JPasswordField ctxPassword;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

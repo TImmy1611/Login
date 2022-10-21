@@ -1,6 +1,10 @@
 
+
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import static java.lang.Character.isDigit;
@@ -11,10 +15,11 @@ import static java.lang.Character.isUpperCase;
 import static java.lang.Character.isWhitespace;
 import javax.swing.JOptionPane;
 
-public class FormRegisto extends javax.swing.JFrame {
+public class EditUser extends javax.swing.JFrame {
 
-    public FormRegisto() {
+    public EditUser() throws IOException {
         initComponents();
+        preencheFormulario();
     }
 
     @SuppressWarnings("unchecked")
@@ -453,5 +458,16 @@ public class FormRegisto extends javax.swing.JFrame {
             }
         }
 
+    }
+
+    private void preencheFormulario() throws FileNotFoundException, IOException {
+        int count=0;
+        String[] lista= new String[7];
+        FileReader fr= new FileReader(Login.login+".txt");
+        BufferedReader br=new BufferedReader(fr);
+        while(br.ready()){
+            lista[count]=br.readLine();
+            count++;
+        }
     }
 }
