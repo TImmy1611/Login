@@ -9,7 +9,11 @@ import static java.lang.Character.isAlphabetic;
 import static java.lang.Character.isLowerCase;
 import static java.lang.Character.isUpperCase;
 import static java.lang.Character.isWhitespace;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import static sun.security.jgss.GSSUtil.login;
 
 public class FormRegisto extends javax.swing.JFrame {
 
@@ -72,16 +76,12 @@ public class FormRegisto extends javax.swing.JFrame {
             }
         });
 
-        ctxPassword.setText("Francis1!");
+        ctxPassword.setText("oO000000000");
         ctxPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ctxPasswordActionPerformed(evt);
             }
         });
-
-        ctxNome.setText("Timoteo");
-
-        ctxEmail.setText("francis16timoteo@hotmail.com");
 
         ctxMorada.setText("Sitio");
         ctxMorada.addActionListener(new java.awt.event.ActionListener() {
@@ -115,7 +115,6 @@ public class FormRegisto extends javax.swing.JFrame {
 
         jLabel9.setText("Login");
 
-        ctxLogin.setText("Stuffz");
         ctxLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ctxLoginActionPerformed(evt);
@@ -136,7 +135,7 @@ public class FormRegisto extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(57, 57, 57)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -154,7 +153,7 @@ public class FormRegisto extends javax.swing.JFrame {
                             .addComponent(ctxPassword)
                             .addComponent(ctxNIF)
                             .addComponent(ctxMorada)
-                            .addComponent(ctxEmail)
+                            .addComponent(ctxEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
                             .addComponent(ctxNome, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(ctxRePassword)
                             .addComponent(ctxTelefone))))
@@ -209,7 +208,7 @@ public class FormRegisto extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Login log = new Login();
         this.dispose();
-        log.setVisible(true);
+        log.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
     private void mensagemErro(String erro) {
         JOptionPane.showMessageDialog(null, erro, "Erro Validação", JOptionPane.ERROR_MESSAGE);
@@ -256,7 +255,7 @@ public class FormRegisto extends javax.swing.JFrame {
             }
         }
         File file1 = new File(login+".txt");
-        if (file1.exists() && !file1.isDirectory()) {
+        if (file1.exists()) {
             System.out.println(file1 + " Exists");
         } else {
             try {
@@ -272,6 +271,8 @@ public class FormRegisto extends javax.swing.JFrame {
             bw.newLine();
             bw.write(login);
             bw.newLine();
+            bw.write(nome);
+            bw.newLine();
             bw.write(email);
             bw.newLine();
             bw.write(morada);
@@ -280,14 +281,18 @@ public class FormRegisto extends javax.swing.JFrame {
             bw.newLine();
             bw.write(telefone);
             bw.newLine();
-            bw.write(nome);
-            bw.newLine();
             bw.close();
             fw.close();
+            try {
+                LigaBD.registaUtilizador(login, nome, email, morada, pass, ERROR, WIDTH);
+            } catch (SQLException ex) {
+                Logger.getLogger(FormRegisto.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-
     }//GEN-LAST:event_jButton2ActionPerformed
 
 

@@ -1,5 +1,6 @@
 
 
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -9,17 +10,24 @@ import java.io.FileWriter;
 import java.io.IOException;
 import static java.lang.Character.isDigit;
 import static java.lang.Character.isLetter;
-import static java.lang.Character.isAlphabetic;
 import static java.lang.Character.isLowerCase;
 import static java.lang.Character.isUpperCase;
-import static java.lang.Character.isWhitespace;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class EditUser extends javax.swing.JFrame {
 
-    public EditUser() throws IOException {
+    public EditUser() throws IOException, SQLException {
         initComponents();
-        preencheFormulario();
+        //preencheFormulario();
+        preencheviaBD();
+        //atualiza();
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -214,7 +222,7 @@ public class EditUser extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Login log = new Login();
         this.dispose();
-        log.setVisible(true);
+        log.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
     private void mensagemErro(String erro) {
         JOptionPane.showMessageDialog(null, erro, "Erro Validação", JOptionPane.ERROR_MESSAGE);
@@ -229,9 +237,13 @@ public class EditUser extends javax.swing.JFrame {
         String pass = ctxPassword.getText();
         String rePass = ctxRePassword.getText();
 
-        if (nome.equals("") || email.equals("")
-                || morada.equals("") || telefone.equals("")
-                || nif.equals("") || pass.equals("") || rePass.equals("")
+        if (nome.equals("") 
+                || email.equals("")
+                || morada.equals("") 
+                || telefone.equals("")
+                || nif.equals("") 
+                || pass.equals("") 
+                || rePass.equals("")
                 || login.equals("")) {
             mensagemErro("Preencha todos os campos");
         } else {
@@ -260,22 +272,15 @@ public class EditUser extends javax.swing.JFrame {
                 mensagemErro("A rePass tem" + " de ser Identica a Pass");
             }
         }
-        File file1 = new File(login+".txt");
-        if (file1.exists() && !file1.isDirectory()) {
-            System.out.println(file1 + " Exists");
-        } else {
-            try {
-                file1.createNewFile();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        }
+        
         try {
-            FileWriter fw = new FileWriter(login+".txt", true);
+            FileWriter fw = new FileWriter(Login.login+".txt", false);
             BufferedWriter bw = new BufferedWriter(fw);
             bw.write(pass);
             bw.newLine();
             bw.write(login);
+            bw.newLine();
+            bw.write(nome);
             bw.newLine();
             bw.write(email);
             bw.newLine();
@@ -285,14 +290,16 @@ public class EditUser extends javax.swing.JFrame {
             bw.newLine();
             bw.write(telefone);
             bw.newLine();
-            bw.write(nome);
-            bw.newLine();
             bw.close();
             fw.close();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-
+        try {
+            atualiza(login,  nome,  email,  morada,  pass, Integer.parseInt(telefone),Integer.parseInt(nif));
+        } catch (SQLException ex) {
+            Logger.getLogger(EditUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
 
@@ -469,5 +476,36 @@ public class EditUser extends javax.swing.JFrame {
             lista[count]=br.readLine();
             count++;
         }
+    }
+
+    private void preencheviaBD() throws SQLException {
+        Connection conn=LigaBD.ligacao();
+        String sql= "SELECT *FROM utilizador WHERE login='"+Login.login+"'";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ResultSet rs=ps.executeQuery();
+        while(rs.next()){
+            int codigo=rs.getInt("idUtilizador");
+            String nome=rs.getString("nome");
+            String email=rs.getString("email");
+            String morada=rs.getString("morada");
+            int telefone=rs.getInt("telefone");
+            int nif=rs.getInt("nif");
+            String password=rs.getString("password");
+            
+        }
+    }
+
+    private void atualiza(String login, String nome, String email, String morada, String password,int telefone, int nif) throws SQLException {
+        Connection conn=LigaBD.ligacao();
+        String sql = "UPDATE utilizador SET login=?, nome=?, email=?, morada=?, password=?, telefone=?, nif=? WHERE login='"+Login.login+"'";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1,login);
+        ps.setString(2,nome);
+        ps.setString(3,email);
+        ps.setString(4,morada);
+        ps.setString(5,password);
+        ps.setInt(6,telefone);
+        ps.setInt(7,nif);
+        ps.executeUpdate();
     }
 }

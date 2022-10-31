@@ -35,7 +35,7 @@
                   <Group type="102" attributes="0">
                       <Component id="jButton2" min="-2" pref="170" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
-                      <Component id="jButton1" pref="150" max="32767" attributes="0"/>
+                      <Component id="jButton1" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -56,7 +56,7 @@
                           <Component id="ctxPassword" alignment="0" max="32767" attributes="0"/>
                           <Component id="ctxNIF" alignment="0" max="32767" attributes="0"/>
                           <Component id="ctxMorada" alignment="0" max="32767" attributes="0"/>
-                          <Component id="ctxEmail" alignment="0" max="32767" attributes="0"/>
+                          <Component id="ctxEmail" alignment="0" pref="277" max="32767" attributes="0"/>
                           <Component id="ctxNome" alignment="1" max="32767" attributes="0"/>
                           <Component id="ctxRePassword" max="32767" attributes="0"/>
                           <Component id="ctxTelefone" max="32767" attributes="0"/>
@@ -176,21 +176,15 @@
     </Component>
     <Component class="javax.swing.JPasswordField" name="ctxPassword">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Francis1!"/>
+        <Property name="text" type="java.lang.String" value="oO000000000"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ctxPasswordActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="ctxNome">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Timoteo"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="ctxEmail">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="francis16timoteo@hotmail.com"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="ctxMorada">
       <Properties>
@@ -244,9 +238,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="ctxLogin">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Stuffz"/>
-      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ctxLoginActionPerformed"/>
       </Events>
